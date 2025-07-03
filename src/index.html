@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue3 响应式原理示例</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{ count }}</h1>
+    <button onclick="state.count++">增加</button>
+    <button onclick="state.count--">减少</button>
+    <p>双倍计数: {{ doubleCount }}</p>
+  </div>
+
+  <script src="mini-vue.js"></script>
+  <script>
+    // 创建响应式数据
+    const state = reactive({
+      count: 0
+    });
+
+    // 计算属性
+    const doubleCount = computed(() => state.count * 2);
+
+    // 渲染函数
+    function render() {
+      document.querySelector('#app h1').textContent = state.count;
+      document.querySelector('#app p').textContent = `双倍计数: ${doubleCount.value}`;
+    }
+
+    // 设置响应式渲染
+    effect(render);
+
+
+  </script>
+</body>
+</html>
